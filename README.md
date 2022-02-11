@@ -2,28 +2,31 @@
 
 ---
 
-# my-ts-lib
+# lets-run
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib) [![npm downloads](https://badgen.net/npm/dm/my-ts-lib)](https://npm.im/my-ts-lib)
-
-## Using this template
-
-- Search `my-ts-lib` and replace it with your custom package name.
-- Search `egoist` and replace it with your name.
-
-Features:
-
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [tsup](https://github.com/egoist/tsup)
-- Test with [vitest](https://vitest.dev)
-
-To skip CI (GitHub action), add `skip-ci` to commit message. To skip release, add `skip-release` to commit message.
+[![npm version](https://badgen.net/npm/v/lets-run)](https://npm.im/lets-run) [![npm downloads](https://badgen.net/npm/dm/lets-run)](https://npm.im/lets-run)
 
 ## Install
 
 ```bash
-npm i my-ts-lib
+npm i lets-run -D
+```
+
+## Usage
+
+Run a command and watch files to rerun on changes:
+
+```bash
+lets-run "node dist/server.js" --watch "dist"
+```
+
+In a monorepo where one package depends on the output files of another package, you can use `--on-path-exists <path>` flag:
+
+```bash
+lets-run "node dist/server.js" \
+    --watch "dist" \
+    --watch "../packages/another-package/dist" \
+    --on-path-exists "../packages/another-package/dist"
 ```
 
 ## Sponsors
