@@ -1,6 +1,6 @@
 {
   "name": "lets-run",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "My awesome typescript library",
   "type": "module",
   "publishConfig": {
