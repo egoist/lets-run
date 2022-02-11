@@ -29,7 +29,8 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "debug": "^4.3.3",
-    "execa": "^6.0.0"
+    "execa": "^6.0.0",
+    "tree-kill": "^1.2.2"
   },
   "engines": {
     "node": ">=14"
