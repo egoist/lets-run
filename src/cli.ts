@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from "fs"
+import path from "path"
 import { ExecaChildProcess, execaCommand } from "execa"
 import { cac } from "cac"
 import { watch } from "chokidar"
@@ -51,17 +52,24 @@ cli
 cli.parse()
 
 function onPathExists(p: string) {
-  if (fs.existsSync(p)) return
+  const paths = ([] as string[]).concat(p).map((p) => path.resolve(p))
 
-  debug(`Waiting for ${p} to exist`)
+  if (paths.every((p) => fs.existsSync(p))) return
+
+  debug(`Waiting for ${paths.join(", ")} to exist`)
+
+  const found: Set<string> = new Set()
+
   return new Promise((resolve) => {
     const watcher = watch(p, {
       ignoreInitial: true,
       disableGlobbing: true,
-      awaitWriteFinish: true,
-    }).on("all", () => {
-      watcher.close()
-      resolve(true)
+    }).on("all", (event, filepath) => {
+      found.add(path.resolve(filepath))
+      if (paths.every((p) => found.has(p))) {
+        watcher.close()
+        resolve(true)
+      }
     })
   })
 }
