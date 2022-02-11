@@ -1,6 +1,6 @@
 {
   "name": "lets-run",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "My awesome typescript library",
   "type": "module",
   "publishConfig": {
@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "chokidar": "^3.5.3",
-    "execa": "^6.0.0",
-    "debug": "^4.3.3"
+    "debug": "^4.3.3",
+    "execa": "^6.0.0"
   },
   "engines": {
     "node": ">=14"
