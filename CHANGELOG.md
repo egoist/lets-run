@@ -1,6 +1,6 @@
 ## Unreleased
 
-No unreleased changes.
+- Reimplement `--on-path-exists` using a simple timer instead of `chokidar`
 
 ## 0.0.3
 

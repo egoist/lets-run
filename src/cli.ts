@@ -45,31 +45,27 @@ cli
     await run()
 
     if (flags.watch) {
-      watch(flags.watch, { ignoreInitial: true }).on("all", run)
+      watch(flags.watch, {
+        ignoreInitial: true,
+        ignorePermissionErrors: true,
+      }).on("all", run)
     }
   })
 
 cli.parse()
 
-function onPathExists(p: string) {
+async function onPathExists(p: string | string[]) {
   const paths = ([] as string[]).concat(p).map((p) => path.resolve(p))
 
-  if (paths.every((p) => fs.existsSync(p))) return
+  const notFoundPaths = paths.filter((p) => !fs.existsSync(p))
+
+  if (notFoundPaths.length === 0) return
 
   debug(`Waiting for ${paths.join(", ")} to exist`)
 
-  const found: Set<string> = new Set()
-
   return new Promise((resolve) => {
-    const watcher = watch(p, {
-      ignoreInitial: true,
-      disableGlobbing: true,
-    }).on("all", (event, filepath) => {
-      found.add(path.resolve(filepath))
-      if (paths.every((p) => found.has(p))) {
-        watcher.close()
-        resolve(true)
-      }
-    })
+    setTimeout(() => {
+      onPathExists(notFoundPaths).then(resolve)
+    }, 200)
   })
 }
